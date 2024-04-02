@@ -12,7 +12,7 @@ import { LinksFunction, MetaFunction, json } from '@remix-run/node'
 import { NextUIProvider } from '@nextui-org/react'
 import stylesheet from '~/styles/index.css?url'
 import { getContacts } from '~/utils/data'
-import clsx from 'clsx'
+import { clsx } from 'ts-clsx'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
