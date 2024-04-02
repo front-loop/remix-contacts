@@ -8,13 +8,17 @@ import {
   useLoaderData,
   useNavigation,
 } from '@remix-run/react'
-import { LinksFunction, json } from '@remix-run/node'
+import { LinksFunction, MetaFunction, json } from '@remix-run/node'
 import { NextUIProvider } from '@nextui-org/react'
 import stylesheet from '~/styles/index.css?url'
 import { getContacts } from '~/utils/data'
 import clsx from 'clsx'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
+
+export const meta: MetaFunction = () => {
+  return [{ title: 'Remix Contacts' }, { name: 'description', content: 'Welcome to Remix!' }]
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
