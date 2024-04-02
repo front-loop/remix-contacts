@@ -1,10 +1,11 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { LinksFunction } from '@remix-run/node'
-import stylesheet from '~/styles/global.css?url'
+import { NextUIProvider } from '@nextui-org/react'
+import stylesheet from '~/styles/globals.css?url'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
-export default function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -14,10 +15,16 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
+        <NextUIProvider>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </NextUIProvider>
       </body>
     </html>
   )
+}
+
+export default function App() {
+  return <Outlet />
 }
