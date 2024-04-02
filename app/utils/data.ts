@@ -29,7 +29,7 @@ const fakeContacts = {
   },
 
   async create(values: ContactMutation): Promise<ContactRecord> {
-    const id = values.id || crypto.randomUUID()
+    const id = values.id || Math.random().toString(36).slice(2)
     const createdAt = new Date().toISOString()
     const newContact = { id, createdAt, ...values }
     fakeContacts.records[id] = newContact
