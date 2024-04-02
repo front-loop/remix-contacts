@@ -5,15 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@netlify/edge-functions':
-    specifier: ^2.3.1
-    version: 2.3.1
-  '@netlify/remix-edge-adapter':
-    specifier: ^3.2.0
-    version: 3.2.0(@remix-run/server-runtime@2.8.1)(vite@5.2.7)
-  '@netlify/remix-runtime':
-    specifier: ^2.2.0
-    version: 2.2.0(@remix-run/server-runtime@2.8.1)
+  '@netlify/functions':
+    specifier: ^2.6.0
+    version: 2.6.0
+  '@netlify/remix-adapter':
+    specifier: ^2.3.0
+    version: 2.3.0(@netlify/functions@2.6.0)(typescript@5.4.3)(vite@5.2.7)
   '@nextui-org/react':
     specifier: ^2.2.10
     version: 2.2.10(@types/react@18.2.74)(framer-motion@11.0.24)(react-dom@18.2.0)(react@18.2.0)(tailwind-variants@0.2.1)(tailwindcss@3.4.3)
@@ -57,7 +54,10 @@ devDependencies:
     version: 0.1.4(prettier@3.2.5)
   '@remix-run/dev':
     specifier: ^2.8.1
-    version: 2.8.1(@remix-run/serve@2.8.1)(typescript@5.4.3)(vite@5.2.7)
+    version: 2.8.1(@remix-run/serve@2.8.1)(@types/node@20.12.2)(typescript@5.4.3)(vite@5.2.7)
+  '@types/node':
+    specifier: ^20.12.2
+    version: 20.12.2
   '@types/react':
     specifier: ^18.2.74
     version: 18.2.74
@@ -84,7 +84,7 @@ devDependencies:
     version: 5.4.3
   vite:
     specifier: ^5.2.7
-    version: 5.2.7
+    version: 5.2.7(@types/node@20.12.2)
   vite-tsconfig-paths:
     specifier: ^4.3.2
     version: 4.3.2(typescript@5.4.3)(vite@5.2.7)
@@ -960,32 +960,42 @@ packages:
       - supports-color
     dev: true
 
-  /@netlify/edge-functions@2.3.1:
-    resolution: {integrity: sha512-3sJzP1DmzMZppkAZpUixdHA4ryiKD1NSpLMRViYStE9Oe10rZPSnM8yl6A90vTBqCYvbAF5S7W9oPf2ucrCCIQ==}
+  /@netlify/functions@2.6.0:
+    resolution: {integrity: sha512-vU20tij0fb4nRGACqb+5SQvKd50JYyTyEhQetCMHdakcJFzjLDivvRR16u1G2Oy4A7xNAtGJF1uz8reeOtTVcQ==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      '@netlify/serverless-functions-api': 1.14.0
     dev: false
 
-  /@netlify/remix-edge-adapter@3.2.0(@remix-run/server-runtime@2.8.1)(vite@5.2.7):
-    resolution: {integrity: sha512-n6KagNPMuIc1xjneA+O7jRrD4XwbmfICizfqAXJdtMGopSXQ/bxknwHKMR1R0aNuTzyo3wWDzjQp6ZUKwuko0Q==}
-    engines: {node: '>=16.0.0'}
+  /@netlify/node-cookies@0.1.0:
+    resolution: {integrity: sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==}
+    engines: {node: ^14.16.0 || >=16.0.0}
+    dev: false
+
+  /@netlify/remix-adapter@2.3.0(@netlify/functions@2.6.0)(typescript@5.4.3)(vite@5.2.7):
+    resolution: {integrity: sha512-XOi9GsrNel5aeVftRMRXZZjst7HPCYtWnnI740RHcF/pK+e7GH0FbAH5WraTLhAi6jIAXSVg5d3BAhIrWywEGw==}
+    engines: {node: '>=14'}
     peerDependencies:
+      '@netlify/functions': ^2.6.0
       vite: ^5.0.0
     peerDependenciesMeta:
       vite:
         optional: true
     dependencies:
-      '@netlify/remix-runtime': 2.2.0(@remix-run/server-runtime@2.8.1)
+      '@netlify/functions': 2.6.0
+      '@remix-run/node': 2.8.1(typescript@5.4.3)
       isbot: 4.4.0
-      vite: 5.2.7
+      vite: 5.2.7(@types/node@20.12.2)
     transitivePeerDependencies:
-      - '@remix-run/server-runtime'
+      - typescript
     dev: false
 
-  /@netlify/remix-runtime@2.2.0(@remix-run/server-runtime@2.8.1):
-    resolution: {integrity: sha512-E4b+/DDPcVF5GkbZt1sGCZ2fRO4at/WuDybJ4oXUpn5giW65KTJ8x0OBDEKZa1XI7uHEU0IAupuUNpYwVga+Pw==}
-    peerDependencies:
-      '@remix-run/server-runtime': ^2.7.1
+  /@netlify/serverless-functions-api@1.14.0:
+    resolution: {integrity: sha512-HUNETLNvNiC2J+SB/YuRwJA9+agPrc0azSoWVk8H85GC+YE114hcS5JW+dstpKwVerp2xILE3vNWN7IMXP5Q5Q==}
+    engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
-      '@remix-run/server-runtime': 2.8.1(typescript@5.4.3)
+      '@netlify/node-cookies': 0.1.0
+      urlpattern-polyfill: 8.0.2
     dev: false
 
   /@nextui-org/accordion@2.0.28(@nextui-org/system@2.0.15)(@nextui-org/theme@2.1.18)(framer-motion@11.0.24)(react-dom@18.2.0)(react@18.2.0)(tailwind-variants@0.2.1):
@@ -3248,7 +3258,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@remix-run/dev@2.8.1(@remix-run/serve@2.8.1)(typescript@5.4.3)(vite@5.2.7):
+  /@remix-run/dev@2.8.1(@remix-run/serve@2.8.1)(@types/node@20.12.2)(typescript@5.4.3)(vite@5.2.7):
     resolution: {integrity: sha512-qFt4jAsAJeIOyg6ngeSnTG/9Z5N9QJfeThP/8wRHc1crqYgTiEtcI3DZ8WlAXjVSF5emgn/ZZKqzLAI02OgMfQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
@@ -3282,7 +3292,7 @@ packages:
       '@remix-run/serve': 2.8.1(typescript@5.4.3)
       '@remix-run/server-runtime': 2.8.1(typescript@5.4.3)
       '@types/mdx': 2.0.12
-      '@vanilla-extract/integration': 6.5.0
+      '@vanilla-extract/integration': 6.5.0(@types/node@20.12.2)
       arg: 5.0.2
       cacache: 17.1.4
       chalk: 4.1.2
@@ -3321,7 +3331,7 @@ packages:
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
       typescript: 5.4.3
-      vite: 5.2.7
+      vite: 5.2.7(@types/node@20.12.2)
       ws: 7.5.9
     transitivePeerDependencies:
       - '@types/node'
@@ -3640,7 +3650,6 @@ packages:
     resolution: {integrity: sha512-zQ0NYO87hyN6Xrclcqp7f8ZbXNbRfoGWNcMvHTPQp9UUrwI0mI7XBz+cu7/W6/VClYo2g63B0cjull/srU7LgQ==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
 
   /@types/prop-types@15.7.12:
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -3689,7 +3698,7 @@ packages:
       outdent: 0.8.0
     dev: true
 
-  /@vanilla-extract/integration@6.5.0:
+  /@vanilla-extract/integration@6.5.0(@types/node@20.12.2):
     resolution: {integrity: sha512-E2YcfO8vA+vs+ua+gpvy1HRqvgWbI+MTlUpxA8FvatOvybuNcWAY0CKwQ/Gpj7rswYKtC6C7+xw33emM6/ImdQ==}
     dependencies:
       '@babel/core': 7.24.3
@@ -3703,8 +3712,8 @@ packages:
       lodash: 4.17.21
       mlly: 1.6.1
       outdent: 0.8.0
-      vite: 5.2.7
-      vite-node: 1.4.0
+      vite: 5.2.7(@types/node@20.12.2)
+      vite-node: 1.4.0(@types/node@20.12.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7078,7 +7087,6 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
-    dev: true
 
   /unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
@@ -7175,6 +7183,10 @@ packages:
       escalade: 3.1.2
       picocolors: 1.0.0
     dev: true
+
+  /urlpattern-polyfill@8.0.2:
+    resolution: {integrity: sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==}
+    dev: false
 
   /use-callback-ref@1.3.2(@types/react@18.2.74)(react@18.2.0):
     resolution: {integrity: sha512-elOQwe6Q8gqZgDA8mrh44qRTQqpIHDcZ3hXTLjBe1i4ph8XpNJnO+aQf3NaG+lriLopI4HMx9VjQLfPQ6vhnoA==}
@@ -7303,7 +7315,7 @@ packages:
       vfile-message: 3.1.4
     dev: true
 
-  /vite-node@1.4.0:
+  /vite-node@1.4.0(@types/node@20.12.2):
     resolution: {integrity: sha512-VZDAseqjrHgNd4Kh8icYHWzTKSCZMhia7GyHfhtzLW33fZlG9SwsB6CEhgyVOWkJfJ2pFLrp/Gj1FSfAiqH9Lw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -7312,7 +7324,7 @@ packages:
       debug: 4.3.4
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.2.7
+      vite: 5.2.7(@types/node@20.12.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7335,13 +7347,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 3.0.3(typescript@5.4.3)
-      vite: 5.2.7
+      vite: 5.2.7(@types/node@20.12.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@5.2.7:
+  /vite@5.2.7(@types/node@20.12.2):
     resolution: {integrity: sha512-k14PWOKLI6pMaSzAuGtT+Cf0YmIx12z9YGon39onaJNy8DLBfBJrzg9FQEmkAM5lpHBZs9wksWAsyF/HkpEwJA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -7369,6 +7381,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.12.2
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.13.2

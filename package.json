@@ -9,9 +9,8 @@
     "format": "prettier --cache --write ."
   },
   "dependencies": {
-    "@netlify/edge-functions": "^2.3.1",
-    "@netlify/remix-edge-adapter": "^3.2.0",
-    "@netlify/remix-runtime": "^2.2.0",
+    "@netlify/functions": "^2.6.0",
+    "@netlify/remix-adapter": "^2.3.0",
     "@nextui-org/react": "^2.2.10",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
@@ -28,6 +27,7 @@
   "devDependencies": {
     "@mancuoj/prettier-config": "^0.1.4",
     "@remix-run/dev": "^2.8.1",
+    "@types/node": "^20.12.2",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23",
     "@types/sort-by": "^1.2.3",
