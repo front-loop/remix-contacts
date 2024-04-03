@@ -11,8 +11,8 @@ import {
 import { LinksFunction, MetaFunction, json } from '@remix-run/node'
 import { NextUIProvider } from '@nextui-org/react'
 import stylesheet from '~/styles/index.css?url'
-import { getContacts } from '~/utils/data'
-import { clsx } from 'ts-clsx'
+import { getContacts } from '~/lib/data'
+import { cn } from '~/lib/utils'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
@@ -58,7 +58,7 @@ export default function App() {
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <NavLink
-                    className={({ isActive, isPending }) => clsx({ active: isActive, pending: isPending })}
+                    className={({ isActive, isPending }) => cn({ active: isActive, pending: isPending })}
                     to={`contacts/${contact.id}`}
                   >
                     {contact.first || contact.last ? (
@@ -77,7 +77,7 @@ export default function App() {
           )}
         </nav>
       </aside>
-      <main className={clsx('flex-[5] p-10', { loading: navigation.state === 'loading' })}>
+      <main className={cn('flex-[5] p-10', { loading: navigation.state === 'loading' })}>
         <Outlet />
       </main>
     </div>
