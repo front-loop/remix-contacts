@@ -29,7 +29,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="h-dvh font-serif antialiased">
+      <body className={cn('font-serif antialiased text-foreground bg-background')}>
         <NextUIProvider>
           {children}
           <ScrollRestoration />
@@ -58,8 +58,11 @@ export default function App() {
               {contacts.map((contact) => (
                 <li key={contact.id}>
                   <NavLink
-                    className={({ isActive, isPending }) => cn({ active: isActive, pending: isPending })}
+                    className={({ isActive, isPending }) =>
+                      cn('delay-100', { active: isActive, 'animate-pulse': isPending })
+                    }
                     to={`contacts/${contact.id}`}
+                    // unstable_viewTransition
                   >
                     {contact.first || contact.last ? (
                       <>
@@ -77,7 +80,7 @@ export default function App() {
           )}
         </nav>
       </aside>
-      <main className={cn('flex-[5] p-10', { loading: navigation.state === 'loading' })}>
+      <main className={cn('flex-[5] p-10 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
         <Outlet />
       </main>
     </div>
