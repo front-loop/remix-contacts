@@ -1,5 +1,5 @@
 nav a {
-  @apply flex items-center gap-4 overflow-hidden rounded-md bg-background px-4 py-3 text-foreground delay-100 transition-background;
+  @apply mb-1 flex items-center rounded-md bg-background px-4 py-3 text-foreground delay-75 transition-background;
 }
 
 nav a:hover {

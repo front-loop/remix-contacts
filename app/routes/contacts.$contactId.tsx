@@ -1,5 +1,6 @@
+import { Button, Image, Link } from '@nextui-org/react'
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
 import { getContact } from '~/lib/data'
 
@@ -14,5 +15,43 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Contact() {
   const { contact } = useLoaderData<typeof loader>()
-  return <div>{JSON.stringify(contact)}</div>
+  return (
+    <div className="flex gap-8">
+      <div>
+        <Image width={240} height={240} radius="lg" isBlurred src={contact.avatar} />
+      </div>
+      <div className="flex flex-col">
+        <h1 className="my-3 text-3xl font-bold">
+          {contact.first || contact.last ? (
+            <>
+              {contact.first} {contact.last}
+            </>
+          ) : (
+            <i className="italic opacity-50">No Name</i>
+          )}{' '}
+        </h1>
+
+        {contact.twitter && (
+          <Link href={`https://twitter.com/${contact.twitter}`} isExternal className="text-lg">
+            {contact.twitter}
+          </Link>
+        )}
+
+        {contact.notes && <p className="mt-2 opacity-70">{contact.notes}</p>}
+
+        <div className="mt-5 flex gap-3">
+          <Form action="edit">
+            <Button type="submit" variant="bordered">
+              Edit
+            </Button>
+          </Form>
+          <Form action="destroy">
+            <Button type="submit" variant="bordered">
+              Delete
+            </Button>
+          </Form>
+        </div>
+      </div>
+    </div>
+  )
 }
