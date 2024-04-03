@@ -15,6 +15,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function Contact() {
   const { contact } = useLoaderData<typeof loader>()
+
   return (
     <div className="flex gap-8">
       <div>
@@ -45,7 +46,14 @@ export default function Contact() {
               Edit
             </Button>
           </Form>
-          <Form action="destroy">
+          <Form
+            action="destroy"
+            method="post"
+            onSubmit={(e) => {
+              const response = confirm('Are you sure you want to delete this contact?')
+              if (!response) e.preventDefault()
+            }}
+          >
             <Button type="submit" variant="bordered">
               Delete
             </Button>
