@@ -140,7 +140,6 @@ const fakeData = [
     first: 'Kent C.',
     last: 'Dodds',
     twitter: '@kentcdodds',
-    notes: 'Team lead @remix-run Team lead @remix-run Team lead @remix-run Team lead @remix-run Team lead @remix-run',
   },
   {
     avatar: 'https://sessionize.com/image/c9d5-400o400o2-Sri5qnQmscaJXVB8m3VBgf.jpg',

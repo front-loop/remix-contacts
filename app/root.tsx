@@ -59,12 +59,12 @@ export default function App() {
   const navigation = useNavigation()
 
   return (
-    <div className="flex max-h-dvh">
-      <aside className="flex-1 overflow-auto p-8">
+    <div className="flex">
+      <aside className="flex h-dvh flex-col p-8">
         <Bar />
         <List />
       </aside>
-      <main className={cn('flex-[4] p-12 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
+      <main className={cn('p-12 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
         <Outlet />
       </main>
     </div>
@@ -119,7 +119,7 @@ export function List() {
   const { contacts } = useLoaderData<typeof loader>()
 
   return (
-    <nav>
+    <nav className="flex-1 overflow-auto scrollbar-none">
       {contacts.length > 0 ? (
         <ul className="flex flex-col gap-1">
           {contacts.map((contact) => (
