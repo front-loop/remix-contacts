@@ -20,9 +20,7 @@ import { useEffect, useState } from 'react'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
 
-export const meta: MetaFunction = () => {
-  return [{ title: 'Remix Contacts' }, { name: 'description', content: 'Welcome to Remix!' }]
-}
+export const meta: MetaFunction = () => [{ title: 'Remix Contacts' }]
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
