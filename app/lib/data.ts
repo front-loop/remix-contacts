@@ -21,7 +21,7 @@ const fakeContacts = {
   records: {} as Record<string, ContactRecord>,
 
   async getAll(): Promise<ContactRecord[]> {
-    return Object.values(fakeContacts.records).sort(sortBy('-createdAt', 'last'))
+    return Object.values(fakeContacts.records)
   },
 
   async get(id: string): Promise<ContactRecord | null> {
@@ -54,9 +54,11 @@ export async function getContacts(query?: string | null) {
   await new Promise((resolve) => setTimeout(resolve, 500))
   let contacts = await fakeContacts.getAll()
   if (query) {
-    contacts = matchSorter(contacts, query, { keys: ['first', 'last'] })
+    contacts = matchSorter(contacts, query, {
+      keys: ['first', 'last'],
+    })
   }
-  return contacts
+  return contacts.sort(sortBy('-createdAt', 'last'))
 }
 
 export async function getContact(id: string) {
