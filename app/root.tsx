@@ -62,7 +62,6 @@ export default function App() {
                       cn('delay-100', { active: isActive, 'animate-pulse': isPending })
                     }
                     to={`contacts/${contact.id}`}
-                    // unstable_viewTransition
                   >
                     {contact.first || contact.last ? (
                       <>
@@ -80,7 +79,7 @@ export default function App() {
           )}
         </nav>
       </aside>
-      <main className={cn('flex-[5] p-10 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
+      <main className={cn('flex-[5] p-12 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
         <Outlet />
       </main>
     </div>

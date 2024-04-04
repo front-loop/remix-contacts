@@ -22,7 +22,7 @@ export default function Contact() {
         <Image width={240} height={240} radius="lg" isBlurred src={contact.avatar} />
       </div>
       <div className="flex flex-col">
-        <h1 className="my-3 text-3xl font-bold">
+        <h1 className="my-2 text-3xl font-bold">
           {contact.first || contact.last ? (
             <>
               {contact.first} {contact.last}
@@ -33,14 +33,14 @@ export default function Contact() {
         </h1>
 
         {contact.twitter && (
-          <Link href={`https://twitter.com/${contact.twitter}`} isExternal className="text-lg">
+          <Link href={`https://twitter.com/${contact.twitter}`} isExternal className="text-xl">
             {contact.twitter}
           </Link>
         )}
 
         {contact.notes && <p className="mt-2 opacity-70">{contact.notes}</p>}
 
-        <div className="mt-5 flex gap-3">
+        <div className="mt-6 flex gap-3">
           <Form action="edit">
             <Button type="submit" variant="bordered">
               Edit
