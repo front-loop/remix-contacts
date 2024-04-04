@@ -19,8 +19,13 @@ export default function Contact() {
   return (
     <div className="flex gap-8">
       <div>
-        <Image width={240} height={240} radius="lg" isBlurred src={contact.avatar} />
+        {contact.avatar ? (
+          <Image width={240} height={240} radius="lg" isBlurred src={contact.avatar} />
+        ) : (
+          <Image width={240} height={240} radius="lg" isBlurred src="https://via.placeholder.com/240x240" />
+        )}
       </div>
+
       <div className="flex flex-col">
         <h1 className="my-2 text-3xl font-bold">
           {contact.first || contact.last ? (

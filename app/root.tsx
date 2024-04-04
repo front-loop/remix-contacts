@@ -1,4 +1,5 @@
 import {
+  Form,
   Links,
   Meta,
   NavLink,
@@ -8,10 +9,10 @@ import {
   useLoaderData,
   useNavigation,
 } from '@remix-run/react'
-import { LinksFunction, MetaFunction, json } from '@remix-run/node'
-import { NextUIProvider } from '@nextui-org/react'
+import { LinksFunction, MetaFunction, json, redirect } from '@remix-run/node'
+import { Button, Input, NextUIProvider } from '@nextui-org/react'
 import stylesheet from '~/styles/index.css?url'
-import { getContacts } from '~/lib/data'
+import { createEmptyContact, getContacts } from '~/lib/data'
 import { cn } from '~/lib/utils'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
@@ -45,6 +46,11 @@ export async function loader() {
   return json({ contacts })
 }
 
+export async function action() {
+  const contact = await createEmptyContact()
+  return redirect(`/contacts/${contact.id}/edit`)
+}
+
 export default function App() {
   const { contacts } = useLoaderData<typeof loader>()
   const navigation = useNavigation()
@@ -52,6 +58,14 @@ export default function App() {
   return (
     <div className="flex max-h-dvh">
       <aside className="flex-1 overflow-auto p-8">
+        <div className="mb-6 flex gap-2">
+          <Input variant="bordered" />
+          <Form method="post">
+            <Button type="submit" variant="bordered">
+              New
+            </Button>
+          </Form>
+        </div>
         <nav>
           {contacts.length > 0 ? (
             <ul className="flex flex-col gap-1">
@@ -79,7 +93,7 @@ export default function App() {
           )}
         </nav>
       </aside>
-      <main className={cn('flex-[5] p-12 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
+      <main className={cn('flex-[4] p-12 delay-100', { 'animate-pulse': navigation.state === 'loading' })}>
         <Outlet />
       </main>
     </div>
