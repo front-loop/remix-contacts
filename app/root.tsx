@@ -15,7 +15,7 @@ import { Button, Input, NextUIProvider } from '@nextui-org/react'
 import stylesheet from '~/styles/index.css?url'
 import { createEmptyContact, getContacts } from '~/lib/data'
 import { cn } from '~/lib/utils'
-import { Loader, SearchIcon } from 'lucide-react'
+import { Loader, SearchIcon, StarIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
@@ -135,6 +135,7 @@ export function List() {
                 ) : (
                   <i>No Name</i>
                 )}
+                {contact.favorite && <StarIcon className="ml-auto fill-yellow-300 text-yellow-500" />}
               </NavLink>
             </li>
           ))}

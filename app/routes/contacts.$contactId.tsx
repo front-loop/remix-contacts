@@ -1,8 +1,9 @@
 import { Button, Image, Link } from '@nextui-org/react'
-import { type LoaderFunctionArgs, json } from '@remix-run/node'
-import { Form, useLoaderData } from '@remix-run/react'
+import { type LoaderFunctionArgs, json, ActionFunctionArgs } from '@remix-run/node'
+import { Form, useFetcher, useLoaderData } from '@remix-run/react'
+import { StarIcon } from 'lucide-react'
 import invariant from 'tiny-invariant'
-import { getContact } from '~/lib/data'
+import { ContactRecord, getContact, updateContact } from '~/lib/data'
 
 export async function loader({ params }: LoaderFunctionArgs) {
   invariant(params.contactId, 'Missing contactId param')
@@ -11,6 +12,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response('Not Found', { status: 404 })
   }
   return json({ contact })
+}
+
+export async function action({ params, request }: ActionFunctionArgs) {
+  invariant(params.contactId, 'Missing contactId param')
+  const formData = await request.formData()
+  return updateContact(params.contactId, {
+    favorite: formData.get('favorite') === 'true',
+  })
 }
 
 export default function Contact() {
@@ -27,15 +36,18 @@ export default function Contact() {
       </div>
 
       <div className="flex flex-col">
-        <h1 className="my-2 text-3xl font-bold">
-          {contact.first || contact.last ? (
-            <>
-              {contact.first} {contact.last}
-            </>
-          ) : (
-            <i className="italic opacity-50">No Name</i>
-          )}{' '}
-        </h1>
+        <div className="flex items-center gap-3">
+          <h1 className="my-2 text-3xl font-bold">
+            {contact.first || contact.last ? (
+              <>
+                {contact.first} {contact.last}
+              </>
+            ) : (
+              <i className="italic opacity-50">No Name</i>
+            )}{' '}
+          </h1>
+          <Favorite contact={contact} />
+        </div>
 
         {contact.twitter && (
           <Link href={`https://twitter.com/${contact.twitter}`} isExternal className="text-xl">
@@ -66,5 +78,18 @@ export default function Contact() {
         </div>
       </div>
     </div>
+  )
+}
+
+export function Favorite({ contact }: { contact: Pick<ContactRecord, 'favorite'> }) {
+  const fetcher = useFetcher()
+  const favorite = fetcher.formData ? fetcher.formData.get('favorite') === 'true' : contact.favorite
+
+  return (
+    <fetcher.Form method="post">
+      <Button type="submit" variant="light" isIconOnly name="favorite" value={favorite ? 'false' : 'true'}>
+        {favorite ? <StarIcon className="fill-yellow-300 text-yellow-500" /> : <StarIcon />}
+      </Button>
+    </fetcher.Form>
   )
 }
