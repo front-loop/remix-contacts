@@ -1,5 +1,5 @@
 import { Button, Image, Link } from '@nextui-org/react'
-import { type LoaderFunctionArgs, json, ActionFunctionArgs } from '@remix-run/node'
+import { type LoaderFunctionArgs, json, type ActionFunctionArgs } from '@remix-run/node'
 import { Form, useFetcher, useLoaderData } from '@remix-run/react'
 import { StarIcon } from 'lucide-react'
 import invariant from 'tiny-invariant'

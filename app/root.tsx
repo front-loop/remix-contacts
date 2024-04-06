@@ -42,8 +42,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
+async function clearEmptyParams(url: URL) {
+  let shouldRedirect = false
+  for (const [key, value] of url.searchParams.entries()) {
+    if (value === '') {
+      url.searchParams.delete(key)
+      shouldRedirect = true
+    }
+  }
+  if (shouldRedirect) {
+    throw redirect(url.toString())
+  }
+}
+
 export async function loader({ request }: LoaderFunctionArgs) {
-  const q = new URL(request.url).searchParams.get('q')
+  const url = new URL(request.url)
+  const q = url.searchParams.get('q')
+  await clearEmptyParams(url)
   const contacts = await getContacts(q)
   return json({ contacts, q })
 }
