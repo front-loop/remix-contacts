@@ -26,13 +26,14 @@ export default function Contact() {
   const { contact } = useLoaderData<typeof loader>()
 
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col gap-8 md:flex-row">
       <div>
-        {contact.avatar ? (
-          <Image width={240} height={240} radius="lg" isBlurred src={contact.avatar} />
-        ) : (
-          <Image width={240} height={240} radius="lg" isBlurred src="https://via.placeholder.com/240x240" />
-        )}
+        <Image
+          className="size-60 min-w-60"
+          radius="lg"
+          isBlurred
+          src={contact.avatar || 'https://via.placeholder.com/240x240'}
+        />
       </div>
 
       <div className="flex flex-col">

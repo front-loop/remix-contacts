@@ -72,8 +72,8 @@ export default function App() {
   const navigation = useNavigation()
 
   return (
-    <div className="flex">
-      <aside className="flex h-dvh flex-col p-8">
+    <div className="grid h-dvh grid-cols-[260px_1fr] lg:grid-cols-[300px_1fr]">
+      <aside className="flex h-dvh flex-col border-r">
         <Bar />
         <List />
       </aside>
@@ -96,7 +96,7 @@ export function Bar() {
   }, [q])
 
   return (
-    <div className="mb-6 flex gap-2">
+    <div className="mb-6 flex gap-2 border-b px-4 py-6">
       <Form
         onChange={(e) => {
           const isFirstSearch = q === null
@@ -134,7 +134,7 @@ export function List() {
   return (
     <nav className="flex-1 overflow-auto scrollbar-none">
       {contacts.length > 0 ? (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-1 px-4">
           {contacts.map((contact) => (
             <li key={contact.id}>
               <NavLink
